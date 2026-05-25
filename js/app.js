@@ -13,7 +13,7 @@ const emptyMsg = document.getElementById('empty-msg');
 const taskCount = document.getElementById('task-count');
 const filterBtns = document.querySelectorAll('.filter-btn');
 
-function saveTasks() {
+function addTasks() {
   localStorage.setItem('tasks', JSON.stringify(tasks));
 }
 
@@ -66,7 +66,7 @@ form.addEventListener('submit', e => {
     createdAt: new Date().toISOString()
   };
   tasks.unshift(newTask);
-  saveTasks();
+  addTasks();
   renderTasks();
   form.reset();
 });
@@ -77,7 +77,7 @@ taskList.addEventListener('change', e => {
     const task = tasks.find(t => t.id === id);
     if (task) {
       task.estado = e.target.checked ? 'completada' : 'pendiente';
-      saveTasks();
+      addTasks();
       renderTasks();
     }
   }
@@ -87,7 +87,7 @@ taskList.addEventListener('click', e => {
   if (e.target.classList.contains('btn-delete')) {
     const id = e.target.closest('.task-item').dataset.id;
     tasks = tasks.filter(t => t.id !== id);
-    saveTasks();
+    addTasks();
     renderTasks();
   }
 });
@@ -108,7 +108,7 @@ if (tasks.length === 0) {
     { id: generateId(), title: 'Configurar repositorio GitHub', desc: 'Crear repo y agregar colaboradores', priority: 'alta', estado: 'completada', createdAt: new Date().toISOString() },
     { id: generateId(), title: 'Escribir historias de usuario', desc: '', priority: 'media', estado: 'pendiente', createdAt: new Date().toISOString() },
   ];
-  saveTasks();
+  addTasks();
 }
 
 renderTasks();
